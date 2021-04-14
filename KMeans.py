@@ -1,15 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import matplotlib.pyplot as plt
 import random
 import math
-
-
-# In[2]:
 
 
 # Test datapoints
@@ -18,21 +9,15 @@ points_list = list()
 for _ in range(num_points):
     p = random.randint(0,10)
     if p<6:
-        point = (random.uniform(0, 7), random.uniform(0, 7))
+        point = (random.uniform(-4, 3), random.uniform(-4, 3))
     elif p>=6 and p<8:
-        point = (random.uniform(6, 8), random.uniform(6, 8))
+        point = (random.uniform(3, 5), random.uniform(3, 5))
     else:
-        point = (random.uniform(7, 10), random.uniform(7, 10))
+        point = (random.uniform(4, 7), random.uniform(4, 7))
     points_list.append(point)
 
 
-# In[3]:
-
-
 plt.scatter([pair[0] for pair in points_list],[pair[1] for pair in points_list], marker = '.')
-
-
-# In[82]:
 
 
 def kmeans(k, points_list, max_iter, initialization):
@@ -79,18 +64,24 @@ def kmeans(k, points_list, max_iter, initialization):
         # update centroids
         centroids_comp = list()
         centroids_dict_items = list(centroids_dict.items())
+        
         for old_centroid, idx in centroids_dict_items:
             idx_cluster = list(filter(lambda pair: pair[1]==idx, cluster_list))
+            # a cluster might be empty due to bad initialization
+            if len(idx_cluster) == 0:
+                # simply assign a random point to that cluster
+                points = [points_list[random.randrange(0, len(points_list))]]
+            else:
+                # list of points in this cluster
+                points = [pair[0] for pair in idx_cluster]
 
-            # list of points in this cluster
-            points = [pair[0] for pair in idx_cluster]
             # calculate new centroid
             new_centroid = calculateNewCentroid(points, len(old_centroid))
             # update centroids_dict
             if new_centroid != old_centroid:
                 # new centroid has same cluster index
                 # add new centroid
-                centroids_dict[new_centroid] = centroids_dict[old_centroid] 
+                centroids_dict[new_centroid] = idx
                 # delete old centroid
                 del centroids_dict[old_centroid]
             
@@ -108,14 +99,10 @@ def kmeans(k, points_list, max_iter, initialization):
         cluster_list.append((point, centroid_idx))
     return cluster_list, list(centroids_dict.keys())
 
-
-# In[71]:
-
-
 def calculateNewCentroid(clusterPoints, dimensions):
     coord_list = list()
     for d in range(dimensions):
-        coord_list.append([pt[d] for pt in clusterPoints]) # get d-th coordinates of all points 
+        coord_list.append([pt[d] for pt in clusterPoints]) # get d-th coordinates of all points    
     return tuple([sum(d)/len(d) for d in coord_list])
 
 def euclideanDist(pt, cent):
@@ -132,9 +119,6 @@ def findCentroid(pt, centroids):
     return sorted(reuslt_list, key=lambda pair:pair[0])[0][1]# return the centroid with min ED to pt
 
 
-# In[83]:
-
-
 k = 4
 max_iterations = 10
 
@@ -147,10 +131,5 @@ for i in range(k):
 plt.figure(1)
 for idx_points in idx_points_list:
     plt.scatter([pair[0] for pair in idx_points],[pair[1] for pair in idx_points], marker = '.')
-
-
-# In[ ]:
-
-
 
 
