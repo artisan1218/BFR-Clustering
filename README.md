@@ -49,3 +49,22 @@ Scikit-learn KMeans result on the same dataset for comparsion:
 
 ![image](https://user-images.githubusercontent.com/25105806/115361066-1164db00-a175-11eb-867d-7f9cc2c22060.png)
 
+
+## 2. Bradley, Fayyad and Reina (BFR) algorithm
+Note: the implementation uses Spark to load the data from sample dataset.
+
+#### Algorithm introduction:
+BFR only keeps track of three different type of sets:
+* DS: Discard Set, which includes points that are close enough to be summarized.
+* CS: Compression Set, which includes group of points that are close enough together but not close to any existing centroids.
+* RS: Retained Set, which includes points that are not close to any of the centroids or other points.
+
+Points in DS and CS will be summarized using
+* N: number of points in this set.
+* SUM: the sum of points coordinates in each dimension.
+* SUMSQ: the square of sum of points coordinates in each dimension.
+
+Then these summarized points will be discarded.
+
+#### Function call: 
+Since BFR only cares about above-mentioned three types of set, the detail process of generating these 3 sets and ways of assigning points to them are not fixed. So there are several hyperparameters to control the generation and point assignment.
