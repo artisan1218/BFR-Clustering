@@ -66,6 +66,9 @@ Points in DS and CS will be summarized using
 
 Then these summarized points will be discarded.
 
+#### Sample data:
+Each folder (test0, 1, 2, 3, 4, 5) contains chunks of data in csv file. For each folder, every csv file represent a portion of the total data points (one chunk). BFR will read from each csv file, assigning points to cluster, then read another one until it read all files in this folder. This way we can simulate the case that we cannot load all data points into main memory. 
+
 #### Function call: 
 Since BFR only cares about above-mentioned three types of set, the detail process of generating these 3 sets and ways of assigning points to them are not fixed. So there are several hyperparameters to control the generation and point assignment.
 
