@@ -68,3 +68,19 @@ Then these summarized points will be discarded.
 
 #### Function call: 
 Since BFR only cares about above-mentioned three types of set, the detail process of generating these 3 sets and ways of assigning points to them are not fixed. So there are several hyperparameters to control the generation and point assignment.
+
+* csv_files_list: the input path of the sample datapoints in forms of list of CSV files
+* k: number of centroids/clusters in the kmeans
+* large_num_centroids: number of centroids/clusters in the kmeans, this variable is 3 or 5 times of k and will be used to generate CS/RS
+* max_iterations: the max times of iterations in kmeans
+* kmeans_initial_cent: either 'random' or 'farthest', specifies the method of centroid initialization
+* very_few: the threshold of number of points of a set to be considered as 'outlier'
+* alpha_threshold: the threshold variable used to define 'close enough'
+* sample_ratio: ratio of sample datapoints to all datapoints, this variable will be used to split the initial datapoints into two parts to speed up the kmeans running time
+* generateCSRS: either 'complement' or 'outliers', method of generating CS and RS, either from complement points or from outliers
+* cache_datapoints: True or False, whether to cache the datapoints in a list. True will store all datapoints in a list so no need to read the file again when assigning points to DS cluster at the end, but requires more memory usuage
+* merge_CS: True or False, whether to merge CS after each iteration
+
+#### Clustering result of the sample datapoints in terms of NMI score:
+
+![image](https://user-images.githubusercontent.com/25105806/115365343-25aad700-a179-11eb-819d-8d7da4e2992c.png)
