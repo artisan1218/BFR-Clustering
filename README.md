@@ -79,7 +79,7 @@ Since BFR only cares about above-mentioned three types of set, the detail proces
 * large_num_centroids: number of centroids/clusters in the kmeans, this variable is 3 or 5 times of k and will be used to generate CS/RS
 * max_iterations: the max times of iterations in kmeans
 * kmeans_initial_cent: either 'random' or 'farthest', specifies the method of centroid initialization
-* very_few: the threshold of number of points of a set to be considered as 'outlier'
+* very_few: the threshold of number of points of a set to be considered as 'outlier', only works if generateCSRS is set to 'outliers'
 * alpha_threshold: the threshold variable used to define 'close enough'
 * sample_ratio: ratio of sample datapoints to all datapoints, this variable will be used to split the initial datapoints into two parts to speed up the kmeans running time
 * generateCSRS: either 'complement' or 'outliers', method of generating CS and RS, either from complement points or from outliers
