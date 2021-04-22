@@ -26,13 +26,14 @@ def kmeans(k, points_list, max_iter, initialization, n_init=3):
     for n in range(n_init):
         centroids_dict = dict() # map centroid tuple to unique and index
         if initialization=='random':
+            dictinct_points = list(set(points_list))
             selected_cent = set()
             for cluster_idx in range(k):
-                random_idx = random.randrange(0, len(points_list))
+                random_idx = random.randrange(0, len(dictinct_points))
                 while random_idx in selected_cent:
-                    random_idx = random.randrange(0, len(points_list))
+                    random_idx = random.randrange(0, len(dictinct_points))
                 selected_cent.add(random_idx)
-                centroids_dict[points_list[random_idx]] = cluster_idx
+                centroids_dict[dictinct_points[random_idx]] = cluster_idx
             # centroids is the list of initial centorids
         elif initialization=='farthest':
             #initialize the initial centroids by farthest distance from each other
