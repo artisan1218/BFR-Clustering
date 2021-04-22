@@ -56,8 +56,12 @@ def kmeans(k, points_list, max_iter, initialization, n_init=1):
     for n in range(n_init):
         centroids_dict = dict() # map centroid tuple to unique and index
         if initialization=='random':
+            selected_cent = set()
             for cluster_idx in range(k):
                 random_idx = random.randrange(0, len(points_list))
+                while random_idx in selected_cent:
+                    random_idx = random.randrange(0, len(points_list))
+                selected_cent.add(random_idx)
                 centroids_dict[points_list[random_idx]] = cluster_idx
             # centroids is the list of initial centorids
         elif initialization=='farthest':
